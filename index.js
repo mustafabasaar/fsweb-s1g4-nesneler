@@ -15,11 +15,11 @@ const serpmeKahvalti = {isim: "Serpme Kahvaltı", fiyat: 16, kategori:"Kahvaltı
 */
 
 
-function MenuElemaniOlustur(/*Kodlar buraya*/){
-	/*Kodlar buraya*/
+function MenuElemaniOlustur(urun ,para,cesidi ){
+   let newFood = {isim: urun, fiyat: para, kategori: cesidi  };
+   return newFood ;
 }
-
-
+console.log("görev 1 sonuç:" , MenuElemaniOlustur("Cheeseburger", 8, "Burgerlar")) ;
 
 /*  Görev 1b (otomatik test yok): 
 	Fonksiyonu çağırın!
@@ -30,6 +30,9 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	
 	Örnek: MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar") şunu döndürür: {isim:"Karışık Pizza",fiyat:5,kategori:"Pizzalar"}
 */
+console.log("1b sonuç 1 :", MenuElemaniOlustur("Krep" , 6, "Kahvaltı")) ;
+console.log("1b sonuç 2 :", MenuElemaniOlustur("Portakal Suyu " ,4, "Icecekler")) ;
+console.log("1b sonuç 3 :", MenuElemaniOlustur("Penne Alfredo" , 20, "Makarnalar")) ;
 
 
 
@@ -44,19 +47,36 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	
 	Örnek: burger.indirim("öğretmen") 13.5 döndürmeli ve burger.indirim("diğer") 16.2 döndürmeli
 */
-
-
-const burger = {
+const burger = {  
 	isim: "Burger", 
 	fiyat: 18, 
 	kategori: "Öğle Yemeği", 
-
-}
-
+	indirim: function(meslek) {
+	  const ogretmen = "öğretmen";
+	  const ogrenci = "öğrenci";
+	  const diger = "diğer"; 
+	  let yeniFiyat = this.fiyat;
+  
+	  if (meslek === "öğretmen") {
+		yeniFiyat = this.fiyat * 0.75;
+	  } else if (meslek === "öğrenci") {
+		yeniFiyat = this.fiyat * 0.75;
+	  } else if (meslek === "diğer") {
+		yeniFiyat = this.fiyat * 0.90;
+	  }
+  
+	  return yeniFiyat;
+	} 
+  }
+  
+  console.log("Görev 2.1 sonuç :", burger.indirim("öğretmen")); 
+  console.log("Görev 2.2 sonuç :", burger.indirim("öğrenci"));   
+  console.log("Görev 2.3 sonuç :", burger.indirim("diğer"));   
 
 
 ///////////////Değerlendirmeler (MVP)///////////////////
-const degerlendirmeler = [
+
+ const degerlendirmeler = [
     {isim: "Nalan", puan: 5, geribildirim:"Mükemmel atmosfer ve mükemmel vegan seçenekleri!"},
     {isim: "Kuddusi", puan: 3, geribildirim:"Benim zevkime göre biraz fazla yenilikçi, burger iyi ama fiyatı yüksek"},
     {isim: "Kamuran", puan: 4, geribildirim:"eğlenceli bilgiler ve havalı hisler"},
@@ -65,22 +85,32 @@ const degerlendirmeler = [
     {isim: "Ahmet", puan: 2, geribildirim: "Bu mekan beni fazla etkilemedi. Menüde özel bir şey yok ve çok pahalı. Atmosferi de ben beğenmedim ama başkaları beğenebilir." },
     {isim: "Latife", puan: 4, geribildirim: "Kesinlikle karaoke Cumalarını seviyorum! Yemek ve içki çeşitleri iyi."},
     {isim: "Reyna", puan: 3.5, geribildirim: ""},
-]
+            ]
 
 /*  Görev 3 (ototest yok):  
 	Yukarıdaki degerlendirmeler dizisini(array) kullanarak:
 	1. Sadece Ahmet'in geribildirimini konsolda görüntüleyin - fonksiyona gerek yok
 */
 
-
+for (const paket of degerlendirmeler){
+	if(paket.isim === "Ahmet"){
+		console.log ("görev 3 sonuç :", paket.geribildirim ) ;
+	}
+}
 
 /*  Görev 4 (ototest yok):  
 	Reyna'nın geribildirimi girilmemiş! Aşağıdakileri uygulayın: (fonksiyona gerek yok) 
 	1. Bu geribildirimi Reyna'nın değerlendirmesine ekleyin - "bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım"
 	2. degerlendirmeler dizisini konsolda görüntüleyerek çalışmanızı kontrol edin
 */
+{  
 
-
+for (const kisi of degerlendirmeler) {
+	if(kisi.isim ==="Reyna")
+	kisi.geribildirim ="bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım" ;
+    console.log("Görev 4 sonuç" , kisi.geribildirim) ;
+	}
+	}
 
 /*  Görev 5: 
 	isim, puan, geribildirim'i içeren bir değerlendirme nesnesi oluşturup, yeni değerlendirmeyi mevcut dizinin(array) sonuna ekleyip sonuç dizisini döndüren bir fonksiyon tanımlayın. 
@@ -94,12 +124,19 @@ const degerlendirmeler = [
 */
 
 
-function DegerlendirmeEkle(/*Kodlar buraya */){
-	/*Kodlar buraya */
+function DegerlendirmeEkle(newArr, name, point,feedBack){
+	let yeniDegerlendirme ={
+		isim: name ,
+		puan: point ,
+		geribildirim: feedBack ,
+
+	} ;
 	
+	newArr.push(yeniDegerlendirme);
+	return newArr ;
 }
 
-
+console.log("görev 5 sonuç:" , DegerlendirmeEkle(degerlendirmeler, "Hurşut", 2, "Boktan yemekler!")) ;
 
 /*  Görev 6: 
 	Dizideki değerlendirmelerin anahtarına(key,index) bağlı olarak bir değerlendirme döndüren bir fonksiyon yazın
@@ -112,12 +149,13 @@ function DegerlendirmeEkle(/*Kodlar buraya */){
 */
 
 
-function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
+function AnahtardanDegerlendirmeAl(newArr,index) {
 
+	let feedBack = newArr[index] ;
+return `${feedBack.isim} isimli kişi ${feedBack.puan} puan verdi ve şunları yazdı: ${feedBack.geribildirim}` ;
 }
 
-
+console.log("görev 6 sonuç :", AnahtardanDegerlendirmeAl(degerlendirmeler,0));
 
 /*  Görev 7:  
 	Diziden en son değerlendirmeyi döndüren adı `SonDegerlendirmeyiAl` olan bir fonksiyon yazın 
@@ -132,10 +170,13 @@ function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
 */
 
 
-function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
+function SonDegerlendirmeyiAl(newArr) {
+	let i = newArr.length -1 ;
+	let lastFeedback = newArr[i] ;
+	
+	return `${lastFeedback.isim} isimli kişi ${lastFeedback.puan} puan verdi ve şunları yazdı: ${lastFeedback.geribildirim}`
 } 
-
+console.log("görev 7 sonuç:", SonDegerlendirmeyiAl(degerlendirmeler)) ;
 
 
 /////////////// BONUS  GÖRVLER////////////////////
@@ -154,11 +195,18 @@ function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
 	]
 */
 
-function PuanaGoreDegerlendirmeAl(/* Kodlar buraya */) {
-    /* Kodlar buraya */
+function PuanaGoreDegerlendirmeAl(newArr, point) {
+    const uygunDegerlendirmeler = [] ;
+	for(let i=0 ; i<newArr.length ; i++){
+		let someFeedback = newArr[i] ;
+		if( someFeedback.puan >= point && someFeedback.puan <= point + 0.9){
+			uygunDegerlendirmeler.push(someFeedback); 
+		}
+	}
+          return uygunDegerlendirmeler ;
 }
 
-
+console.log("bonus 1 sonuç :",PuanaGoreDegerlendirmeAl(degerlendirmeler,4)) ;
 /*  BONUS 2:    
 	UzunDegerlendirmeleriAl fonksiyonuna aşağıdakileri uygulayın:
 	1. Tüm değerlendirmeleri içeren diziyi alacak
@@ -166,10 +214,22 @@ function PuanaGoreDegerlendirmeAl(/* Kodlar buraya */) {
 	
 */
 
-function UzunDegerlendirmeleriAl(/* Kodlar buraya */) {
-    /* Kodlar buraya */
-}
-
+function UzunDegerlendirmeleriAl(birDizi) {
+	let newBirDizi = [];
+	for (const paket of birDizi) {
+	  const geribildirim = paket.geribildirim;
+	  const kelimeler = geribildirim.split(" ");
+  
+  if (kelimeler.length > 15) {
+		newBirDizi.push(paket);
+	  }
+	}
+  
+	return newBirDizi;
+  }
+  
+  console.log("Bonus 2 görevi:", UzunDegerlendirmeleriAl(degerlendirmeler));
+  
 
 /*  BONUS 3:  
 	Bu ek görevde degerlendirmeler dizisi kullanılmayacak!  Bu görevde kendi nesnenizi yaratmanız gerekmektedir.
@@ -189,11 +249,25 @@ function UzunDegerlendirmeleriAl(/* Kodlar buraya */) {
 */
 
 
-function arabaYapici(/* Kodlar buraya */) {
-    /* Kodlar buraya */
-    
+function arabaYapici(kmDegeri) {
+   const car = {
+	marka: "Mercedes" ,
+	model: "GTR" ,
+	kilometreSayar: kmDegeri ,
+	surulenMesafe: function (mesafe) {
+		this.kilometreSayar += mesafe ;
+		return this.kilometreSayar ;
+	}
+   } 
+    return car ;
 }
+const car1 = new arabaYapici(10);
+const car2 = new arabaYapici(0);
 
+console.log("B3 1", car1.surulenMesafe(100));
+console.log("B3 1", car1.surulenMesafe(100));
+console.log("B3 1", car1.surulenMesafe(100));
+console.log("B3 2", car2.surulenMesafe(100));
 
 /*  Buradan aşağıdaki kodları değiştirmeyin lütfen */
 function sa(){
